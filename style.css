@@ -140,7 +140,7 @@ body {
 
   .warning {
     width: 60%;
-    font-size: 2vw;
+    font-size: 1.5vw;
   }
 
   #test {
@@ -183,5 +183,70 @@ body {
   .content {
     gap: 20px;
     padding-bottom: 20px;
+  }
+}
+
+/* ----------------- 1024px 이상 반응형 ----------------- */
+@media screen and (min-width: 64rem) {
+  /* 64rem ≈ 1024px */
+  .container {
+    width: 100%;
+    max-width: 800px; /* 컨테이너 최대 폭 확대 */
+    margin: auto; /* 좌우 중앙 정렬 */
+  }
+
+  .title {
+    font-size: 9vw; /* 화면 크기에 맞춰 글자 확대 */
+  }
+
+  .sub-title {
+    font-size: 5vw;
+  }
+
+  .warning {
+    width: 600px; /* 경고 박스 확대 */
+    font-size: 1.5rem;
+  }
+
+  #test {
+    width: 120px;
+    height: 120px;
+    font-size: 3.5vw;
+  }
+
+  #result-area {
+    font-size: 2.5vw;
+  }
+
+  #chance-area {
+    font-size: 2vw;
+    padding: 12px;
+  }
+
+  #history-area {
+    font-size: 2.5vw;
+  }
+
+  #user-input {
+    width: 220px;
+    height: 45px;
+    font-size: 2.5vw;
+  }
+
+  #play-btn {
+    width: 120px;
+    height: 60px;
+    font-size: 3vw;
+  }
+
+  #reset-btn {
+    width: 120px;
+    height: 120px;
+    font-size: 2vw;
+  }
+
+  .content {
+    gap: 50px;
+    padding-bottom: 50px;
   }
 }
