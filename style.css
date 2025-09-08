@@ -250,3 +250,17 @@ body {
     padding-bottom: 50px;
   }
 }
+
+@media screen and (min-width: 88rem) {
+  #play-btn {
+    width: 120px;
+    height: 60px;
+    font-size: 2vw;
+  }
+
+  #reset-btn {
+    width: 120px;
+    height: 120px;
+    font-size: 1.5vw;
+  }
+}
