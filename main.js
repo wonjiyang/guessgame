@@ -3,10 +3,12 @@ let playBtn = document.getElementById('play-btn');
 let userInput = document.getElementById('user-input');
 let resultArea = document.getElementById('result-area');
 let resetBtn = document.getElementById('reset-btn');
-let chances = 5;
+let chances = 3;
 let gameOver = false;
 let chanceArea = document.getElementById('chance-area');
 let history = [];
+let historyArea = document.getElementById('history-area');
+let test = document.getElementById('test');
 
 //랜덤번호 지정
 function pickRandomNum() {
@@ -15,6 +17,7 @@ function pickRandomNum() {
   //Math.floor() : 소수점 숫자를 버리는 함수
   //Math.random() 함수는 1를 불러오지 않기 때문에 + 1를 해 원하는 범위인 1~100을 불러올 수 있다
   console.log(computerNum);
+  test.textContent = `${computerNum}`;
 }
 
 //유저가 번호를 입력하고 go라는 버튼을 누른다
@@ -30,29 +33,36 @@ function play() {
     return;
   }
 
+  //입력한 숫자인지 체크
   if (history.includes(userValue)) {
     resultArea.textContent = '이미 입력한 숫자입니다';
     return;
   }
 
-  chances--;
+  // 남은 기회 차감 (0 아래로 내려가지 않도록)
+  if (chances > 0) {
+    chances--;
+  }
   chanceArea.textContent = `남은 기회: ${chances}번`;
   // "" : 정적인 값
 
+  if (userValue == computerNum) {
+    resultArea.textContent = '정답입니다!';
+    gameOver = true; // 게임 종료 처리
+    playBtn.disabled = false; // 버튼 비활성화
+    return; // 이후 코드 실행 X
+  }
+
+  // UP / DOWN 메시지
   if (userValue < computerNum) {
     resultArea.textContent = 'UP!';
-    //만약 유저가 랜덤번호를 맞추면 "맞췄습니다!"
-  } else if (userValue > computerNum) {
-    //랜덤번호 < 유저번호 "DOWN!"
-    resultArea.textContent = 'Down!';
   } else {
-    resultArea.textContent = '정답입니다!';
-    gameOver = true;
-    //랜덤번호 > 유저번호 "UP!"
+    resultArea.textContent = 'DOWN!';
   }
 
   //유저가 이미 입력한 숫자를 또 입력하면 알려준다. 기회를 깍지 않는다
   history.push(userValue);
+  historyArea.textContent = history.join('   ');
 
   //5번의 기회를 다쓰면 게임이 끝난다(더이상 추측 불가, 버튼이 disable)
   if (chances < 1) {
@@ -60,6 +70,7 @@ function play() {
   }
   if (gameOver == true) {
     playBtn.disabled = true;
+    resultArea.textContent = `정답: ${computerNum}`;
   }
 }
 
@@ -69,10 +80,13 @@ resetBtn.addEventListener('click', reset);
 function reset() {
   pickRandomNum();
   userInput.value = '';
-  chances = 5;
+  gameOver = false;
+  chances = 3;
   chanceArea.textContent = `남은 기회: ${chances}번`;
-
-  resultArea.textContent = '결과값이 나온다';
+  resultArea.textContent = `다시 맞춰볼까요?`;
+  history = [];
+  historyArea.textContent = '';
+  playBtn.disabled = false;
 }
 
 userInput.addEventListener('focus', function () {
